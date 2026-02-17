@@ -13,6 +13,13 @@ This file mirrors `UI.md` and must be updated in lockstep after each completed p
 - `[x]` Completed
 - A phase can only be marked complete when all tasks and acceptance criteria in `UI.md` are complete.
 
+## Locked Decisions
+- Authenticated app-shell master reference is `Screens UI Type/stitch (6)/code.html` + `Screens UI Type/stitch (6)/screen.png`.
+- Typography parity target is `stitch (6)`.
+- Spacing profile is `stitch (6) relaxed` for 13-14" laptops (about +8-12% spacing vs compact reference density).
+- Guardrail: no functionality or backend behavior changes during redesign (UI-only visual/responsive updates).
+- Public/legal pages are deferred to Phase 10 (`src/app/page.tsx`, `src/app/resources/page.tsx`, `src/app/terms-of-service/page.tsx`).
+
 ---
 
 ## Phase Tracker
@@ -27,16 +34,20 @@ This file mirrors `UI.md` and must be updated in lockstep after each completed p
 - [x] Global dual-theme token foundation implemented in `src/app/globals.css`.
 - [x] Core reference utilities added (glass panel, command strip, neon badge, selected row, data-table shell).
 - [x] One-off hard-coded style usage reduced across key authenticated app-shell routes/components.
+- [x] Redo applied with `stitch (6)` token baseline and breakpoint density policy (`1024-1440` relaxed, `>1440` near-compact).
 
 ### Phase 2 - Typography and Visual Hierarchy
 - [x] Completed
 - [x] Font strategy updated in `src/app/layout.tsx` with display/mono/body families.
 - [x] Typography scale and utility classes added in `src/app/globals.css`.
 - [x] Hierarchy applied in `PageHeader`, shell labels/topbar, and table heading surfaces.
+- [x] Redo applied with stitch (6) typography parity reinforcement.
 
 ### Phase 3 - App Shell Redesign
-- [ ] Not started
-- [ ] Sidebar/topbar/main-rail alignment overhaul pending.
+- [x] Completed
+- [x] Sidebar/topbar/main-rail alignment overhaul applied with `stitch (6)` shell baseline lock.
+- [x] `stitch (6) relaxed` density profile applied for 13-14" laptop readability, with near-compact behavior above `1440`.
+- [x] Command strip and shell rail spacing normalized in `src/components/layout/DashboardLayout.tsx` and `src/app/globals.css`.
 
 ### Phase 4 - Shared Component System Upgrade
 - [ ] Not started
@@ -52,7 +63,7 @@ This file mirrors `UI.md` and must be updated in lockstep after each completed p
 
 ### Phase 7 - Users Migration
 - [ ] Not started
-- [ ] `src/app/users/page.tsx` migration pending.
+- [ ] `src/app/users/page.tsx` migration pending (`stitch (6)` parity target).
 
 ### Phase 8 - Assets Migration
 - [ ] Not started

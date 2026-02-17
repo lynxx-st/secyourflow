@@ -55,6 +55,20 @@ const secondaryNav = [
     { name: "Settings", href: "/settings", icon: Settings, roles: ["MAIN_OFFICER", "IT_OFFICER", "PENTESTER", "ANALYST"] },
 ];
 
+const routeLabelMap: Record<string, string> = {
+    "/dashboard": "Command_Center",
+    "/assets": "Asset_Operations",
+    "/vulnerabilities": "Vulnerability_Triage",
+    "/threats": "Threat_Console",
+    "/risk-register": "Risk_Register",
+    "/compliance": "Compliance_Grid",
+    "/reports": "Reporting_Hub",
+    "/scanners": "Scanner_Orchestrator",
+    "/cves": "CVE_Intel",
+    "/users": "Access_Control",
+    "/settings": "System_Settings",
+};
+
 interface SidebarProps {
     isOpen: boolean;
     setIsOpen: (open: boolean) => void;
@@ -90,13 +104,14 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                 )}
             >
                 {/* Logo */}
-                <div className="p-5 border-b border-[var(--border-color)]">
+                <div className="border-b border-[var(--border-color)] px-5 py-4">
                     <Link href="/dashboard" className="flex items-center gap-3">
                         <Image
                             src="/logo1.png"
                             alt="SecYourFlow"
-                            width={40}
-                            height={40}
+                            width={34}
+                            height={34}
+                            className="rounded-full ring-1 ring-[var(--line-3)] shadow-[var(--glow-accent)]"
                         />
                         <span className="type-label text-[13px] tracking-[0.22em] text-[var(--text-primary)]">
                             SECYOUR<span className="text-[var(--accent-1)]">FLOW</span>
@@ -105,7 +120,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                 </div>
 
                 {/* Navigation */}
-                <nav className="flex-1 py-4 overflow-y-auto min-h-0">
+                <nav className="min-h-0 flex-1 overflow-y-auto py-4">
                     <div className="px-4 mb-2">
                         <span className="type-label text-[var(--text-muted)]">
                             Main Menu
@@ -152,11 +167,11 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                 </nav>
 
                 {/* User Section */}
-                <div className="p-4 border-t border-[var(--border-color)] mt-auto">
+                <div className="mt-auto border-t border-[var(--border-color)] p-4">
                     <div className="relative">
                         <button
                             onClick={() => setShowSignOut(!showSignOut)}
-                            className="w-full flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-tertiary)] cursor-pointer hover:bg-[var(--bg-tertiary)]/80 transition-colors"
+                            className="flex w-full cursor-pointer items-center gap-3 rounded-xl border border-[var(--border-color)] bg-[var(--bg-tertiary)] p-3 transition-colors hover:border-[var(--line-3)]"
                         >
                             <div className="type-mono flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--line-3)] bg-[var(--accent-1-soft)] text-sm font-semibold text-[var(--accent-1)]">
                                 {userInitials}
@@ -169,7 +184,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                                     {userRole.replace('_', ' ')}
                                 </p>
                             </div>
-                            <div className="p-1.5 rounded-lg text-[var(--text-muted)]">
+                            <div className="rounded-lg p-1.5 text-[var(--text-muted)]">
                                 <ChevronDown size={14} />
                             </div>
                         </button>
@@ -177,7 +192,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                         {/* Click-triggered Sign Out Menu */}
                         {showSignOut && (
                             <div className="absolute bottom-full left-0 w-full mb-2 z-50 animate-fade-in">
-                                <div className="bg-[var(--bg-elevated)] border border-[var(--border-color)] rounded-xl shadow-2xl p-1 overflow-hidden">
+                                <div className="overflow-hidden rounded-xl border border-[var(--border-color)] bg-[var(--bg-elevated)] p-1 shadow-2xl">
                                     <button
                                         onClick={() => signOut({ callbackUrl: "/" })}
                                         className="w-full flex items-center gap-2 rounded-lg p-2.5 text-sm text-[var(--badge-critical-text)] transition-colors hover:bg-[var(--badge-critical-bg)]"
@@ -215,6 +230,7 @@ function getApiErrorMessage(payload: unknown): string | null {
 }
 
 export function TopBar({ onToggleSidebar }: TopBarProps) {
+    const pathname = usePathname();
     const { theme, toggleTheme } = useTheme();
     const router = useRouter();
     const [threatsCount, setThreatsCount] = useState(0);
@@ -393,33 +409,39 @@ export function TopBar({ onToggleSidebar }: TopBarProps) {
         }
     };
 
+    const activeRoutePrefix = Object.keys(routeLabelMap).find((route) => pathname === route || pathname.startsWith(`${route}/`));
+    const shellLabel = activeRoutePrefix ? routeLabelMap[activeRoutePrefix] : "Security_Console";
+
     return (
-        <header className="h-16 bg-[var(--bg-secondary)]/80 backdrop-blur-md border-b border-[var(--border-color)]/50 flex items-center justify-between px-6 sticky top-0 z-20">
-            {/* Left Section: Menu Toggle & Search */}
-            <div className="flex items-center gap-4 flex-1 max-w-xl">
+        <header className="shell-topbar sticky top-0 z-20 flex items-center justify-between border-b border-[var(--border-color)]/70 bg-[var(--bg-secondary)]/75 px-6 backdrop-blur-md">
+            <div className="min-w-0 flex items-center gap-4">
                 <button
                     onClick={onToggleSidebar}
-                    className="p-2 rounded-lg hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all duration-300 ease-in-out"
+                    className="rounded-lg border border-[var(--border-color)] p-2 text-[var(--text-secondary)] transition-all duration-300 ease-in-out hover:border-[var(--line-3)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]"
                     aria-label="Toggle Sidebar"
                 >
                     <Menu size={20} />
                 </button>
 
-                <div className="relative flex-1">
-                    <Search
-                        size={18}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]"
-                    />
-                    <input
-                        type="text"
-                        placeholder="Search assets, vulnerabilities, or CVEs..."
-                        className="input !pl-10 py-2.5 text-sm bg-[var(--bg-tertiary)]"
-                    />
+                <div className="min-w-0">
+                    <h1 className="type-mono truncate text-[15px] font-bold uppercase tracking-tight text-[var(--text-primary)]">
+                        {shellLabel} <span className="text-[var(--accent-1)]">{"//"}</span> System_Active
+                    </h1>
+                    <div className="type-mono type-caption mt-0.5 flex items-center gap-2 text-[var(--text-muted)]">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[var(--badge-low-text)] shadow-[var(--glow-accent)]" />
+                        LIVE FEED CONNECTED
+                    </div>
                 </div>
             </div>
 
-            {/* Right Section */}
-            <div className="flex items-center gap-3 ml-4">
+            <div className="ml-4 flex items-center gap-3">
+                <div className="hidden items-center gap-2 rounded-lg border border-[var(--border-color)] bg-[var(--bg-tertiary)] px-3 py-1.5 xl:flex">
+                    <Search size={14} className="text-[var(--text-muted)]" />
+                    <span className="type-mono type-caption text-[var(--text-muted)]">
+                        <span className="rounded bg-[var(--surface-4)] px-1 text-[var(--text-primary)]">J</span> / <span className="rounded bg-[var(--surface-4)] px-1 text-[var(--text-primary)]">K</span> to navigate
+                    </span>
+                </div>
+
                 {/* Live Threats Indicator */}
                 <Link href="/threats">
                     <div className="hidden cursor-pointer items-center gap-2 rounded-lg border border-[var(--badge-critical-border)] bg-[var(--badge-critical-bg)] px-3 py-1.5 transition-all duration-300 ease-in-out hover:opacity-90 md:flex">
@@ -443,7 +465,7 @@ export function TopBar({ onToggleSidebar }: TopBarProps) {
                 <div className="relative">
                     <button
                         onClick={() => setShowNotifications(!showNotifications)}
-                        className="relative p-2 rounded-lg hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all duration-300 ease-in-out"
+                        className="relative rounded-lg border border-[var(--border-color)] p-2 text-[var(--text-secondary)] transition-all duration-300 ease-in-out hover:border-[var(--line-3)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]"
                     >
                         <Bell size={20} />
                         {notificationsCount > 0 && (
@@ -453,7 +475,7 @@ export function TopBar({ onToggleSidebar }: TopBarProps) {
 
                     {/* Dropdown */}
                     {showNotifications && (
-                        <div className="absolute right-0 top-full mt-2 w-80 bg-[var(--bg-elevated)] border border-[var(--border-color)] rounded-xl shadow-2xl z-50 overflow-hidden animate-fade-in">
+                        <div className="animate-fade-in absolute right-0 top-full z-50 mt-2 w-80 overflow-hidden rounded-xl border border-[var(--border-color)] bg-[var(--bg-elevated)] shadow-2xl">
                             <div className="p-3 border-b border-[var(--border-color)] flex justify-between items-center bg-[var(--bg-tertiary)]">
                                 <h3 className="type-caption font-semibold">Notifications</h3>
                                 {notificationsCount > 0 && (
@@ -528,7 +550,28 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                 isSidebarOpen ? "lg:ml-[260px]" : "lg:ml-0"
             )}>
                 <TopBar onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-                <main className="p-6 min-h-[calc(100vh-4rem)]">{children}</main>
+                <div className="px-[var(--shell-rail-x)] pt-4">
+                    <div className="command-strip glass-panel px-2 shadow-lg">
+                        <div className="type-mono flex min-w-0 flex-1 items-center gap-3 px-3">
+                            <span className="text-lg font-bold text-[var(--accent-1)]">&gt;</span>
+                            <input
+                                type="text"
+                                placeholder="filter:critical status:open sort:newest..."
+                                className="type-mono h-[var(--control-h-md)] w-full border-none bg-transparent p-0 text-sm text-[var(--text-primary)] outline-none placeholder:text-[var(--text-muted)]/70"
+                            />
+                            <span className="block h-5 w-2 animate-pulse rounded-sm bg-[var(--accent-1)]/80" />
+                        </div>
+                        <div className="hidden items-center gap-2 border-l border-[var(--border-color)] pl-3 pr-1 lg:flex">
+                            <button type="button" className="type-mono type-caption rounded border border-[var(--border-color)] px-2.5 py-1 text-[var(--text-muted)] transition-colors hover:border-[var(--line-2)] hover:text-[var(--text-primary)]">
+                                preset:my_tickets
+                            </button>
+                            <button type="button" className="type-mono type-caption rounded border border-[var(--border-color)] px-2.5 py-1 text-[var(--text-muted)] transition-colors hover:border-[var(--line-2)] hover:text-[var(--text-primary)]">
+                                preset:pci_dss
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <main className="shell-main-rail min-h-[calc(100vh-var(--shell-topbar-h))]">{children}</main>
             </div>
         </div>
     );

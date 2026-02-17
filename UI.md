@@ -26,6 +26,22 @@
 - Dense but readable SOC-oriented data layouts.
 - Fully responsive behavior from mobile to large desktop screens.
 
+## Execution Decisions (Locked)
+- Master visual and interaction reference for authenticated app surfaces is `Screens UI Type/stitch (6)/code.html` and `Screens UI Type/stitch (6)/screen.png`.
+- Typography hierarchy must follow `stitch (6)` (display/section/body/mono/tactical labels) across app-shell routes.
+- Density profile is `stitch (6) relaxed`: keep structure and style parity, but increase spacing by ~8-12% for readability on 13-14" laptops.
+- Breakpoint density policy is locked:
+  - `1024-1440`: use `stitch (6) relaxed` spacing.
+  - `>1440`: use near-compact `stitch (6)` spacing for data-heavy surfaces.
+- Functional and backend behavior must not change in this redesign:
+  - UI-only changes: layout, styling, spacing, typography, and responsive behavior.
+  - Do not modify frontend business logic, workflow semantics, permissions logic, or API request/response handling behavior.
+  - Do not modify backend/API routes, database schema, auth/session behavior, or integration contracts.
+- Public/legal routes remain deferred to Phase 10:
+  - `src/app/page.tsx`
+  - `src/app/resources/page.tsx`
+  - `src/app/terms-of-service/page.tsx`
+
 ---
 
 # Phase 0 - Discovery and Alignment Lock
@@ -58,6 +74,14 @@ Lock scope and map references to existing architecture before implementation.
 
 # Phase 1 - Design Token Foundation (Global CSS System)
 **Phase status:** `[x] Completed`
+
+## Redo Pass (stitch (6) lock)
+- [x] Redone against `Screens UI Type/stitch (6)/code.html` and `Screens UI Type/stitch (6)/screen.png`.
+- [x] Re-baselined core surface/text/border/glass/glow tokens to match stitch (6) visual language.
+- [x] Added breakpoint-aware density tokens and behavior lock:
+  - [x] `1024-1440` uses relaxed spacing profile.
+  - [x] `>1440` uses near-compact spacing for data-heavy views.
+- [x] Rewired table cell spacing, control heights, and shell rail spacing to token-driven density values.
 
 ## Objective
 Create a single, reusable token and utility layer that enforces the reference visual system globally.
@@ -94,6 +118,12 @@ Create a single, reusable token and utility layer that enforces the reference vi
 # Phase 2 - Typography and Visual Hierarchy
 **Phase status:** `[x] Completed`
 
+## Redo Pass (stitch (6) typography parity)
+- [x] Redone with stitch (6) typography target.
+- [x] Space Grotesk / JetBrains Mono / Inter hierarchy preserved in `src/app/layout.tsx`.
+- [x] Global typography utilities reinforced for display/title/section/label/mono/caption usage.
+- [x] Body and shell surfaces aligned to stitch (6) typography intent while preserving readability.
+
 ## Objective
 Align app-wide typography to reference: strong display headlines, mono tactical labels, clear body text.
 
@@ -120,34 +150,37 @@ Align app-wide typography to reference: strong display headlines, mono tactical 
 ---
 
 # Phase 3 - App Shell Redesign (Sidebar, Topbar, Main Rail)
-**Phase status:** `[ ] Not started`
+**Phase status:** `[x] Completed`
 
 ## Objective
 Rebuild shell-level alignment and behavior to match reference rhythm and responsiveness.
 
 ## Detailed Tasks
-- [ ] Refactor `src/components/layout/DashboardLayout.tsx` sidebar:
-  - [ ] Strict icon/text baseline alignment.
-  - [ ] Active/hover states using reference-like neon cues.
-  - [ ] Section dividers + tactical labels with consistent spacing.
-  - [ ] Predictable desktop vs mobile drawer behavior.
-- [ ] Refactor top bar:
-  - [ ] Status-strip hierarchy and spacing.
-  - [ ] Search/command area style consistency.
-  - [ ] Notifications and utilities aligned to shared control styling.
-- [ ] Main rail consistency:
-  - [ ] Sidebar offset math fixed and stable.
-  - [ ] Content paddings unified by breakpoint.
-  - [ ] No visual jitter when sidebar opens/closes.
-- [ ] Mobile hardening:
-  - [ ] Overlay and drawer animation quality.
-  - [ ] Touch target sizing.
-  - [ ] No hidden critical actions.
+- [x] Lock shell composition to `stitch (6)` as master baseline (sidebar width, topbar height, rail offsets, panel geometry).
+- [x] Apply `stitch (6) relaxed` spacing profile (+8-12%) for 13-14" laptop readability without changing core visual language.
+- [x] Refactor `src/components/layout/DashboardLayout.tsx` sidebar:
+  - [x] Strict icon/text baseline alignment.
+  - [x] Active/hover states using reference-like neon cues.
+  - [x] Section dividers + tactical labels with consistent spacing.
+  - [x] Predictable desktop vs mobile drawer behavior.
+- [x] Refactor top bar:
+  - [x] Status-strip hierarchy and spacing.
+  - [x] Search/command area style consistency.
+  - [x] Notifications and utilities aligned to shared control styling.
+- [x] Main rail consistency:
+  - [x] Sidebar offset math fixed and stable.
+  - [x] Content paddings unified by breakpoint.
+  - [x] Enforce density policy: relaxed at `1024-1440`, near-compact above `1440`.
+  - [x] No visual jitter when sidebar opens/closes.
+- [x] Mobile hardening:
+  - [x] Overlay and drawer animation quality.
+  - [x] Touch target sizing.
+  - [x] No hidden critical actions.
 
 ## Acceptance Criteria
-- [ ] Shell is alignment-stable at all breakpoints.
-- [ ] No clipping, overlap, or overflow from shell interactions.
-- [ ] Sidebar/topbar/content feel like one cohesive system.
+- [x] Shell is alignment-stable at all breakpoints.
+- [x] No clipping, overlap, or overflow from shell interactions.
+- [x] Sidebar/topbar/content feel like one cohesive system.
 
 ---
 
@@ -229,7 +262,7 @@ Transform `src/app/vulnerabilities/page.tsx` into a reference-style triage surfa
 **Phase status:** `[ ] Not started`
 
 ## Objective
-Align `src/app/users/page.tsx` with `stitch (5)` visual language while preserving existing functions.
+Align `src/app/users/page.tsx` with `stitch (6)` visual language while preserving existing functions.
 
 ## Detailed Tasks
 - [ ] Rework page header with tactical console identity.
@@ -242,7 +275,7 @@ Align `src/app/users/page.tsx` with `stitch (5)` visual language while preservin
 - [ ] Ensure spacing and border rhythm matches global shell system.
 
 ## Acceptance Criteria
-- [ ] Users page visibly aligns with `Screens UI Type/stitch (5)` intent.
+- [ ] Users page visibly aligns with `Screens UI Type/stitch (6)` intent.
 - [ ] Data remains readable and scannable.
 - [ ] Responsive behavior maintains all key interactions.
 
@@ -358,7 +391,7 @@ Finalize quality with responsive checks, accessibility validation, and engineeri
 - [x] Phase 0 - Discovery and Alignment Lock
 - [x] Phase 1 - Design Token Foundation
 - [x] Phase 2 - Typography and Visual Hierarchy
-- [ ] Phase 3 - App Shell Redesign
+- [x] Phase 3 - App Shell Redesign
 - [ ] Phase 4 - Shared Component System Upgrade
 - [ ] Phase 5 - Dashboard Migration
 - [ ] Phase 6 - Vulnerability Migration

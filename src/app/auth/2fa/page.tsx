@@ -23,10 +23,6 @@ type ApiFailure = {
     code?: string;
 };
 
-function isSixDigitTotpCode(value: string): boolean {
-    return /^\d{6}$/.test(value.replace(/\s+/g, "").trim());
-}
-
 async function parseApiFailure(response: Response, fallback: string): Promise<ApiFailure> {
     try {
         const payload = (await response.json()) as ApiError;
@@ -51,7 +47,6 @@ export default function TwoFactorChallengePage() {
     const [enrollment, setEnrollment] = useState<EnrollmentResponse | null>(null);
     const lastSubmissionRef = useRef<{ flow: "enrollment" | "challenge"; code: string; at: number } | null>(null);
     const lastAutoSubmittedEnrollmentCodeRef = useRef<string | null>(null);
-    const lastAutoSubmittedChallengeCodeRef = useRef<string | null>(null);
 
     const isTotpEnabled = Boolean(session?.user?.totpEnabled);
     const isTwoFactorVerified = session?.twoFactorVerified === true;
@@ -167,7 +162,12 @@ export default function TwoFactorChallengePage() {
     };
 
     const submitChallengeCode = useCallback(async (submittedCode: string) => {
-        const normalizedCode = submittedCode.replace(/\s+/g, "").trim();
+        const trimmedCode = submittedCode.trim();
+        const normalizedTotpCandidate = trimmedCode.replace(/\D/g, "").slice(0, 6);
+        const normalizedCode =
+            normalizedTotpCandidate.length === 6
+                ? normalizedTotpCandidate
+                : trimmedCode.replace(/\s+/g, "");
         if (!normalizedCode) {
             setError("Enter your authenticator or recovery code.");
             return;
@@ -235,25 +235,6 @@ export default function TwoFactorChallengePage() {
         void submitEnrollmentCode(normalizedCode);
     }, [enrollment, isSubmitting, submitEnrollmentCode, verifyCode]);
 
-    useEffect(() => {
-        if (!isTotpEnabled || isSubmitting) {
-            return;
-        }
-
-        const normalizedCode = code.replace(/\s+/g, "").trim();
-        if (!isSixDigitTotpCode(normalizedCode)) {
-            lastAutoSubmittedChallengeCodeRef.current = null;
-            return;
-        }
-
-        if (lastAutoSubmittedChallengeCodeRef.current === normalizedCode) {
-            return;
-        }
-
-        lastAutoSubmittedChallengeCodeRef.current = normalizedCode;
-        void submitChallengeCode(normalizedCode);
-    }, [code, isSubmitting, isTotpEnabled, submitChallengeCode]);
-
     return (
         <div className="min-h-screen bg-[var(--bg-primary)] bg-grid flex items-center justify-center px-4 py-8">
             <div className="w-full max-w-md">
@@ -265,6 +246,7 @@ export default function TwoFactorChallengePage() {
                             alt="SecYourFlow"
                             width={80}
                             height={80}
+                            style={{ width: "auto", height: "auto" }}
                         />
                         <span className="text-2xl font-semibold tracking-[0.25em] text-[var(--text-primary)]">
                             SECYOUR<span className="text-sky-300">FLOW</span>
