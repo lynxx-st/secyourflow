@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { cn, getSeverityBgClass } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 
 interface StatCardProps {
@@ -28,16 +28,23 @@ export function StatCard({
 }: StatCardProps) {
     const getTrendIcon = () => {
         if (!trend) return null;
-        if (trend.value > 0) return <TrendingUp size={14} className="text-red-400" />;
-        if (trend.value < 0) return <TrendingDown size={14} className="text-green-400" />;
-        return <Minus size={14} className="text-gray-400" />;
+        if (trend.value > 0) return <TrendingUp size={14} className="text-[var(--badge-critical-text)]" />;
+        if (trend.value < 0) return <TrendingDown size={14} className="text-[var(--badge-low-text)]" />;
+        return <Minus size={14} className="text-[var(--text-muted)]" />;
     };
 
     const getTrendColor = () => {
         if (!trend) return "";
-        if (trend.value > 0) return "text-red-400";
-        if (trend.value < 0) return "text-green-400";
-        return "text-gray-400";
+        if (trend.value > 0) return "text-[var(--badge-critical-text)]";
+        if (trend.value < 0) return "text-[var(--badge-low-text)]";
+        return "text-[var(--text-muted)]";
+    };
+
+    const severityTextTone: Record<NonNullable<StatCardProps["severity"]>, string> = {
+        CRITICAL: "text-[var(--badge-critical-text)]",
+        HIGH: "text-[var(--badge-high-text)]",
+        MEDIUM: "text-[var(--badge-medium-text)]",
+        LOW: "text-[var(--badge-low-text)]",
     };
 
     return (
@@ -63,7 +70,7 @@ export function StatCard({
                     <span
                         className={cn(
                             "text-3xl font-bold",
-                            severity ? getSeverityBgClass(severity).split(" ")[1] : "text-slate-900 dark:text-slate-100"
+                            severity ? severityTextTone[severity] : "text-[var(--text-primary)]"
                         )}
                     >
                         {value}
@@ -97,10 +104,10 @@ export function RiskScoreCard({ score, label, className }: RiskScoreCardProps) {
     const strokeDashoffset = circumference - (score / 100) * circumference;
 
     const getScoreColor = () => {
-        if (score >= 80) return "#ef4444";
-        if (score >= 60) return "#f97316";
-        if (score >= 40) return "#eab308";
-        return "#22c55e";
+        if (score >= 80) return "var(--state-critical)";
+        if (score >= 60) return "var(--state-high)";
+        if (score >= 40) return "var(--state-medium)";
+        return "var(--state-low)";
     };
 
     const getScoreLabel = () => {
@@ -126,7 +133,7 @@ export function RiskScoreCard({ score, label, className }: RiskScoreCardProps) {
                         fill="none"
                         strokeWidth="12"
                         stroke="currentColor"
-                        className="text-slate-300/70 dark:text-white/10"
+                        className="text-[var(--line-1)]"
                     />
                     {/* Progress ring */}
                     <circle
@@ -143,7 +150,7 @@ export function RiskScoreCard({ score, label, className }: RiskScoreCardProps) {
                 </svg>
                 {/* Center text */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-4xl font-bold text-slate-900 dark:text-slate-100">{score.toFixed(1)}</span>
+                    <span className="text-4xl font-bold text-[var(--text-primary)]">{score.toFixed(1)}</span>
                     <span
                         className="text-sm font-medium"
                         style={{ color: getScoreColor() }}
@@ -189,7 +196,7 @@ interface ProgressBarProps {
 export function ProgressBar({
     value,
     max = 100,
-    color = "#3b82f6",
+    color = "var(--accent-1)",
     showLabel = true,
     className,
 }: ProgressBarProps) {
@@ -238,7 +245,7 @@ export function Card({
                 <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--border-color)]">
                     <div>
                         {title && (
-                            <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">{title}</h3>
+                            <h3 className="text-base font-semibold text-[var(--text-primary)]">{title}</h3>
                         )}
                         {subtitle && (
                             <p className="text-sm text-[var(--text-muted)] mt-0.5">{subtitle}</p>
@@ -267,7 +274,7 @@ export function EmptyState({ icon, title, description, action }: EmptyStateProps
                     {icon}
                 </div>
             )}
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">{title}</h3>
+            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-1">{title}</h3>
             <p className="text-sm text-[var(--text-muted)] max-w-sm mb-4">
                 {description}
             </p>
@@ -306,7 +313,7 @@ export function Table({ columns, data, onRowClick }: TableProps) {
                         <tr
                             key={idx}
                             className={cn(
-                                "hover:bg-slate-900/[0.02] dark:hover:bg-white/[0.02]",
+                                "hover:bg-[var(--bg-elevated)]/40",
                                 onRowClick ? "cursor-pointer" : ""
                             )}
                             onClick={() => onRowClick?.(row)}

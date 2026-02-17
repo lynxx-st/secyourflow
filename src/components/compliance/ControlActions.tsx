@@ -53,13 +53,13 @@ export function ControlActions({
                 className={cn(
                     "p-2 rounded-lg transition-all duration-300 ease-in-out border",
                     isOpen 
-                        ? "bg-[var(--bg-elevated)] text-white border-[var(--border-color)]" 
-                        : "bg-transparent text-[var(--text-muted)] border-transparent hover:bg-[var(--bg-tertiary)] hover:text-white"
+                        ? "bg-[var(--bg-elevated)] text-[var(--text-primary)] border-[var(--border-color)]" 
+                        : "bg-transparent text-[var(--text-muted)] border-transparent hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]"
                 )}
                 disabled={isDeleting}
             >
                 {isDeleting ? (
-                    <Loader2 size={16} className="animate-spin text-blue-500" />
+                    <Loader2 size={16} className="animate-spin text-[var(--accent-1)]" />
                 ) : (
                     <MoreVertical size={16} />
                 )}
@@ -67,7 +67,7 @@ export function ControlActions({
 
             {isOpen && (
                 <div 
-                    className="absolute right-0 mt-2 w-56 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border-color)] shadow-2xl z-[1000] overflow-hidden"
+                    className="absolute right-0 mt-2 z-[1000] w-56 overflow-hidden rounded-xl border border-[var(--border-color)] bg-[var(--bg-elevated)] shadow-[var(--shadow-lg)]"
                 >
                     {!isConfirming ? (
                         <div className="p-1 space-y-1">
@@ -79,9 +79,9 @@ export function ControlActions({
                                     onAssess();
                                     setIsOpen(false);
                                 }}
-                                className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:text-white hover:bg-white/5 rounded-lg transition-all duration-300 ease-in-out text-left"
+                                className="w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-[var(--text-secondary)] transition-all duration-300 ease-in-out hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]"
                             >
-                                <ClipboardCheck size={14} className="text-blue-400" />
+                                <ClipboardCheck size={14} className="text-[var(--accent-1)]" />
                                 Assess Control
                             </button>
                             {onEvidence ? (
@@ -93,7 +93,7 @@ export function ControlActions({
                                         onEvidence();
                                         setIsOpen(false);
                                     }}
-                                    className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:text-white hover:bg-white/5 rounded-lg transition-all duration-300 ease-in-out text-left"
+                                    className="w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-[var(--text-secondary)] transition-all duration-300 ease-in-out hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]"
                                 >
                                     <FileUp size={14} className="text-emerald-400" />
                                     Manage Evidence
@@ -106,15 +106,15 @@ export function ControlActions({
                                     e.stopPropagation();
                                     setIsConfirming(true);
                                 }}
-                                className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-red-500 hover:bg-red-500/10 rounded-lg transition-all duration-300 ease-in-out text-left"
+                                className="w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-[var(--badge-critical-text)] transition-all duration-300 ease-in-out hover:bg-[var(--badge-critical-bg)]"
                             >
                                 <Trash2 size={14} />
                                 Delete Control
                             </button>
                         </div>
                     ) : (
-                        <div className="p-4 bg-red-500/5">
-                            <p className="text-sm font-bold text-white mb-2">Delete Control?</p>
+                        <div className="bg-[var(--badge-critical-bg)] p-4">
+                            <p className="mb-2 text-sm font-bold text-[var(--text-primary)]">Delete Control?</p>
                             <div className="flex flex-col gap-2">
                                 <button
                                     type="button"
@@ -124,7 +124,7 @@ export function ControlActions({
                                         onDelete();
                                         setIsOpen(false);
                                     }}
-                                    className="w-full py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg text-xs font-bold transition-all duration-300 ease-in-out"
+                                    className="w-full rounded-lg bg-[var(--state-critical)] py-2 text-xs font-bold text-white transition-all duration-300 ease-in-out hover:opacity-90"
                                 >
                                     Confirm Delete
                                 </button>
@@ -135,7 +135,7 @@ export function ControlActions({
                                         e.stopPropagation();
                                         setIsConfirming(false);
                                     }}
-                                    className="w-full py-2 bg-[var(--bg-tertiary)] text-white rounded-lg text-xs transition-all duration-300 ease-in-out"
+                                    className="w-full rounded-lg bg-[var(--bg-tertiary)] py-2 text-xs text-[var(--text-primary)] transition-all duration-300 ease-in-out"
                                 >
                                     Cancel
                                 </button>

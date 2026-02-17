@@ -35,7 +35,7 @@ const SeverityDistributionChart = dynamic(
     ),
   {
     ssr: false,
-    loading: () => <div className="h-[220px] animate-pulse rounded-xl bg-white/5" />,
+    loading: () => <div className="h-[220px] animate-pulse rounded-xl bg-[var(--bg-tertiary)]" />,
   },
 );
 
@@ -47,7 +47,7 @@ const RiskAssessmentView = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-sm text-[var(--text-muted)]">
+      <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-tertiary)]/40 p-4 text-sm text-[var(--text-muted)]">
         Loading risk assessment...
       </div>
     ),
@@ -115,20 +115,20 @@ const workflowTransitions: Record<(typeof workflowOptions)[number], (typeof work
 const numberFormatter = new Intl.NumberFormat("en-US");
 
 const severityColor: Record<string, string> = {
-  CRITICAL: "text-red-300 border-red-400/35 bg-red-500/10",
-  HIGH: "text-orange-300 border-orange-400/35 bg-orange-500/10",
-  MEDIUM: "text-yellow-300 border-yellow-400/35 bg-yellow-500/10",
-  LOW: "text-emerald-300 border-emerald-400/35 bg-emerald-500/10",
-  INFORMATIONAL: "text-[var(--text-secondary)] border-slate-400/35 bg-slate-500/10",
+  CRITICAL: "text-[var(--badge-critical-text)] border-[var(--badge-critical-border)] bg-[var(--badge-critical-bg)]",
+  HIGH: "text-[var(--badge-high-text)] border-[var(--badge-high-border)] bg-[var(--badge-high-bg)]",
+  MEDIUM: "text-[var(--badge-medium-text)] border-[var(--badge-medium-border)] bg-[var(--badge-medium-bg)]",
+  LOW: "text-[var(--badge-low-text)] border-[var(--badge-low-border)] bg-[var(--badge-low-bg)]",
+  INFORMATIONAL: "text-[var(--badge-info-text)] border-[var(--badge-info-border)] bg-[var(--badge-info-bg)]",
 };
 
 const statusColor: Record<string, string> = {
-  OPEN: "text-red-300 border-red-400/35 bg-red-500/10",
-  IN_PROGRESS: "text-sky-300 border-sky-400/35 bg-sky-500/10",
-  MITIGATED: "text-violet-300 border-violet-400/35 bg-violet-500/10",
-  FIXED: "text-emerald-300 border-emerald-400/35 bg-emerald-500/10",
-  ACCEPTED: "text-[var(--text-secondary)] border-slate-400/35 bg-slate-500/10",
-  FALSE_POSITIVE: "text-[var(--text-secondary)] border-slate-400/35 bg-slate-500/10",
+  OPEN: "text-[var(--badge-critical-text)] border-[var(--badge-critical-border)] bg-[var(--badge-critical-bg)]",
+  IN_PROGRESS: "text-[var(--accent-1-strong)] border-[var(--line-3)] bg-[var(--accent-1-soft)]",
+  MITIGATED: "text-[var(--accent-1)] border-[var(--line-3)] bg-[var(--accent-1-soft)]",
+  FIXED: "text-[var(--badge-low-text)] border-[var(--badge-low-border)] bg-[var(--badge-low-bg)]",
+  ACCEPTED: "text-[var(--badge-info-text)] border-[var(--badge-info-border)] bg-[var(--badge-info-bg)]",
+  FALSE_POSITIVE: "text-[var(--badge-info-text)] border-[var(--badge-info-border)] bg-[var(--badge-info-bg)]",
 };
 
 function formatLabel(value: string) {
@@ -150,7 +150,7 @@ function getSlaBadge(slaDueAt?: string | Date | null) {
   if (!slaDueAt) {
     return {
       label: "No SLA",
-      tone: "border-slate-400/35 bg-slate-500/10 text-[var(--text-secondary)]",
+      tone: "border-[var(--badge-info-border)] bg-[var(--badge-info-bg)] text-[var(--badge-info-text)]",
     };
   }
 
@@ -161,20 +161,20 @@ function getSlaBadge(slaDueAt?: string | Date | null) {
   if (remainingMs < 0) {
     return {
       label: `SLA Breached ${Math.abs(remainingDays)}d`,
-      tone: "border-red-400/35 bg-red-500/10 text-red-200",
+      tone: "border-[var(--badge-critical-border)] bg-[var(--badge-critical-bg)] text-[var(--badge-critical-text)]",
     };
   }
 
   if (remainingDays <= 3) {
     return {
       label: `SLA ${remainingDays}d left`,
-      tone: "border-yellow-400/35 bg-yellow-500/10 text-yellow-200",
+      tone: "border-[var(--badge-medium-border)] bg-[var(--badge-medium-bg)] text-[var(--badge-medium-text)]",
     };
   }
 
   return {
     label: `SLA ${remainingDays}d left`,
-    tone: "border-emerald-400/35 bg-emerald-500/10 text-emerald-200",
+    tone: "border-[var(--badge-low-border)] bg-[var(--badge-low-bg)] text-[var(--badge-low-text)]",
   };
 }
 
@@ -494,7 +494,7 @@ function VulnerabilitiesContent() {
               <button
                 type="button"
                 onClick={() => setIsAddModalOpen(true)}
-                className="btn btn-primary !px-5 !py-2.5 bg-gradient-to-r from-sky-500 to-sky-400 border-none shadow-lg shadow-sky-500/20"
+                className="btn btn-primary !px-5 !py-2.5"
               >
                 <Plus size={14} className="mr-2" />
                 Add Vulnerability
@@ -530,7 +530,7 @@ function VulnerabilitiesContent() {
         />
 
         {actionError ? (
-          <section className="rounded-2xl border border-red-400/25 bg-red-500/5 p-3 text-sm text-red-200">
+          <section className="rounded-2xl border border-[var(--badge-critical-border)] bg-[var(--badge-critical-bg)] p-3 text-sm text-[var(--badge-critical-text)]">
             {actionError}
           </section>
         ) : null}
@@ -648,7 +648,7 @@ function VulnerabilitiesContent() {
               className={cn(
                 "inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm transition",
                 showExploited
-                  ? "border-red-400/35 bg-red-500/10 text-red-500 theme-dark:text-red-200"
+                  ? "border-[var(--badge-critical-border)] bg-[var(--badge-critical-bg)] text-[var(--badge-critical-text)]"
                   : "border-[var(--border-color)] bg-[var(--bg-tertiary)] text-[var(--text-muted)] hover:bg-[var(--bg-elevated)] hover:text-[var(--text-primary)]",
               )}
             >
@@ -664,7 +664,7 @@ function VulnerabilitiesContent() {
               className={cn(
                 "inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm transition",
                 showKevOnly
-                  ? "border-orange-400/35 bg-orange-500/10 text-orange-500 theme-dark:text-orange-200"
+                  ? "border-[var(--badge-high-border)] bg-[var(--badge-high-bg)] text-[var(--badge-high-text)]"
                   : "border-[var(--border-color)] bg-[var(--bg-tertiary)] text-[var(--text-muted)] hover:bg-[var(--bg-elevated)] hover:text-[var(--text-primary)]",
               )}
             >
@@ -674,7 +674,7 @@ function VulnerabilitiesContent() {
         </section>
 
         {error ? (
-          <section className="rounded-2xl border border-red-400/25 bg-red-500/5 p-4 text-sm text-red-200">
+          <section className="rounded-2xl border border-[var(--badge-critical-border)] bg-[var(--badge-critical-bg)] p-4 text-sm text-[var(--badge-critical-text)]">
             {error}
           </section>
         ) : null}
@@ -720,7 +720,7 @@ function VulnerabilitiesContent() {
                         onClick={() => setActiveVulnId(isExpanded ? null : vuln.id)}
                       >
                         <div className="rounded-lg border border-[var(--border-color)] bg-[var(--bg-tertiary)] p-2.5">
-                          <Shield size={18} className="text-sky-500 theme-dark:text-sky-300" />
+                          <Shield size={18} className="text-[var(--accent-1)]" />
                         </div>
 
                         <div className="min-w-0 flex-1">
@@ -730,7 +730,7 @@ function VulnerabilitiesContent() {
                                 href={`https://nvd.nist.gov/vuln/detail/${vuln.cveId}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 font-mono text-xs text-sky-500 theme-dark:text-sky-300 hover:text-sky-600 theme-dark:hover:text-sky-200"
+                                className="inline-flex items-center gap-1 font-mono text-xs text-[var(--accent-1)] hover:text-[var(--accent-1-strong)]"
                                 onClick={(event) => event.stopPropagation()}
                               >
                                 {vuln.cveId}
@@ -749,19 +749,19 @@ function VulnerabilitiesContent() {
                             </span>
 
                             {vuln.workflowState ? (
-                              <span className="rounded-full border border-sky-400/35 bg-sky-500/10 px-2 py-0.5 text-[11px] text-sky-200">
+                              <span className="rounded-full border border-[var(--line-3)] bg-[var(--accent-1-soft)] px-2 py-0.5 text-[11px] text-[var(--accent-1)]">
                                 {formatLabel(vuln.workflowState)}
                               </span>
                             ) : null}
 
                             {vuln.isExploited ? (
-                              <span className="rounded-full border border-red-400/35 bg-red-500/10 px-2 py-0.5 text-[11px] text-red-200">
+                              <span className="rounded-full border border-[var(--badge-critical-border)] bg-[var(--badge-critical-bg)] px-2 py-0.5 text-[11px] text-[var(--badge-critical-text)]">
                                 EXPLOITED
                               </span>
                             ) : null}
 
                             {vuln.cisaKev ? (
-                              <span className="rounded-full border border-orange-400/35 bg-orange-500/10 px-2 py-0.5 text-[11px] text-orange-200">
+                              <span className="rounded-full border border-[var(--badge-high-border)] bg-[var(--badge-high-bg)] px-2 py-0.5 text-[11px] text-[var(--badge-high-text)]">
                                 CISA KEV
                               </span>
                             ) : null}
@@ -799,7 +799,7 @@ function VulnerabilitiesContent() {
                         </div>
 
                         <div className="hidden text-right md:block">
-                          <p className="text-sm font-semibold text-orange-500 theme-dark:text-orange-300">
+                          <p className="text-sm font-semibold text-[var(--badge-high-text)]">
                             {vuln.affectedAssets || 0}
                           </p>
                           <p className="text-xs text-[var(--text-muted)]">Affected Assets</p>
@@ -839,7 +839,7 @@ function VulnerabilitiesContent() {
                                 type="button"
                                 disabled={workflowUpdatingId === vuln.id}
                                 onClick={() => void transitionWorkflow(vuln, state)}
-                                className="inline-flex items-center gap-1 rounded-md border border-sky-400/35 bg-sky-500/10 px-2.5 py-1 text-[11px] text-sky-500 theme-dark:text-sky-200 transition hover:bg-sky-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+                                className="inline-flex items-center gap-1 rounded-md border border-[var(--line-3)] bg-[var(--accent-1-soft)] px-2.5 py-1 text-[11px] text-[var(--accent-1)] transition hover:bg-[var(--accent-1-dim)] disabled:cursor-not-allowed disabled:opacity-50"
                               >
                                 {workflowUpdatingId === vuln.id ? "Updating..." : `Move to ${formatLabel(state)}`}
                               </button>
@@ -940,7 +940,7 @@ function VulnerabilitiesContent() {
                       </div>
                       <div className="h-1.5 overflow-hidden rounded-full bg-[var(--bg-tertiary)]">
                         <div
-                          className="h-full rounded-full bg-cyan-300"
+                          className="h-full rounded-full bg-[var(--accent-1)]"
                           style={{
                             width: `${Math.min((item.count / highestSourceCount) * 100, 100)}%`,
                           }}
@@ -963,22 +963,22 @@ function VulnerabilitiesContent() {
                   {
                     label: "High (>70%)",
                     value: epssDistribution.high,
-                    tone: "text-red-500 theme-dark:text-red-200 border-red-400/35 bg-red-500/10",
+                     tone: "text-[var(--badge-critical-text)] border-[var(--badge-critical-border)] bg-[var(--badge-critical-bg)]",
                   },
                   {
                     label: "Medium (30-70%)",
                     value: epssDistribution.medium,
-                    tone: "text-orange-500 theme-dark:text-orange-200 border-orange-400/35 bg-orange-500/10",
+                     tone: "text-[var(--badge-high-text)] border-[var(--badge-high-border)] bg-[var(--badge-high-bg)]",
                   },
                   {
                     label: "Low (10-30%)",
                     value: epssDistribution.low,
-                    tone: "text-yellow-500 theme-dark:text-yellow-200 border-yellow-400/35 bg-yellow-500/10",
+                     tone: "text-[var(--badge-medium-text)] border-[var(--badge-medium-border)] bg-[var(--badge-medium-bg)]",
                   },
                   {
                     label: "Minimal (<10%)",
                     value: epssDistribution.minimal,
-                    tone: "text-emerald-500 theme-dark:text-emerald-200 border-emerald-400/35 bg-emerald-500/10",
+                     tone: "text-[var(--badge-low-text)] border-[var(--badge-low-border)] bg-[var(--badge-low-bg)]",
                   },
                 ].map((item) => (
                   <div

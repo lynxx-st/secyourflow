@@ -1,10 +1,10 @@
-import { ReactNode } from "react";
+import { ComponentType, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface Stat {
     label: string;
     value: string | number;
-    icon?: any;
+    icon?: ComponentType<{ size?: number }>;
     trend?: {
         value: string | number;
         isUp?: boolean;
@@ -30,15 +30,15 @@ export function PageHeader({ title, description, badge, actions, stats, classNam
             className
         )}>
             {/* Premium background effects */}
-            <div className="pointer-events-none absolute right-[-50px] top-[-100px] h-64 w-64 rounded-full bg-sky-500/10 blur-[100px] opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
-            <div className="pointer-events-none absolute left-[-20px] bottom-[-40px] h-40 w-40 rounded-full bg-violet-500/5 blur-[80px]" />
+            <div className="pointer-events-none absolute right-[-50px] top-[-100px] h-64 w-64 rounded-full bg-[var(--accent-1-soft)] blur-[100px] opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
+            <div className="pointer-events-none absolute left-[-20px] bottom-[-40px] h-40 w-40 rounded-full bg-[var(--accent-1-dim)] blur-[80px]" />
 
             <div className="relative flex flex-col gap-6">
                 {/* Header Content Row */}
                 <div className="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-6">
                     <div className="flex-1 min-w-0 xl:min-w-[280px]">
                         {badge && (
-                            <div className="mb-4 inline-flex items-center gap-2 rounded-lg border border-sky-300/20 bg-sky-400/5 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-sky-400">
+                            <div className="mb-4 inline-flex items-center gap-2 rounded-lg border border-[var(--line-3)] bg-[var(--accent-1-soft)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-[var(--accent-1-strong)]">
                                 {badge}
                             </div>
                         )}
@@ -70,7 +70,7 @@ export function PageHeader({ title, description, badge, actions, stats, classNam
                             return (
                                 <div key={i} className="flex items-center gap-3.5 group/stat">
                                     {Icon && (
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] text-[var(--text-muted)] transition-colors group-hover/stat:border-sky-400/30 group-hover/stat:text-sky-400">
+                                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] text-[var(--text-muted)] transition-colors group-hover/stat:border-[var(--line-3)] group-hover/stat:text-[var(--accent-1)]">
                                             <Icon size={18} />
                                         </div>
                                     )}

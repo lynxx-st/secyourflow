@@ -71,14 +71,14 @@ export function AssetActions({
                 className={cn(
                     "p-2 rounded-lg transition-all duration-300 ease-in-out border",
                     isOpen 
-                        ? "bg-[var(--bg-elevated)] text-white border-[var(--border-color)]" 
-                        : "bg-transparent text-[var(--text-muted)] border-transparent hover:bg-[var(--bg-tertiary)] hover:text-white"
+                        ? "bg-[var(--bg-elevated)] text-[var(--text-primary)] border-[var(--border-color)]" 
+                        : "bg-transparent text-[var(--text-muted)] border-transparent hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]"
                 )}
                 disabled={isDeleting}
                 title="Asset Actions"
             >
                 {isDeleting ? (
-                    <Loader2 size={18} className="animate-spin text-blue-500" />
+                    <Loader2 size={18} className="animate-spin text-[var(--accent-1)]" />
                 ) : (
                     <MoreVertical size={18} />
                 )}
@@ -86,7 +86,7 @@ export function AssetActions({
 
             {isOpen && (
                 <div 
-                    className="absolute right-0 mt-2 w-64 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border-color)] shadow-[0_10px_40px_rgba(0,0,0,0.8)] z-[1000] overflow-hidden"
+                    className="absolute right-0 mt-2 z-[1000] w-64 overflow-hidden rounded-xl border border-[var(--border-color)] bg-[var(--bg-elevated)] shadow-[var(--shadow-lg)]"
                 >
                     {!isConfirming ? (
                         <div className="p-1 space-y-1">
@@ -98,23 +98,23 @@ export function AssetActions({
                                     onEdit();
                                     setIsOpen(false);
                                 }}
-                                className="w-full flex items-center gap-3 px-3 py-3 text-sm font-medium text-[var(--text-secondary)] hover:text-white hover:bg-white/5 rounded-lg transition-all duration-300 ease-in-out text-left"
+                                className="w-full flex items-center gap-3 rounded-lg px-3 py-3 text-left text-sm font-medium text-[var(--text-secondary)] transition-all duration-300 ease-in-out hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]"
                             >
-                                <Edit2 size={14} className="text-blue-400" />
+                                <Edit2 size={14} className="text-[var(--accent-1)]" />
                                 Edit Asset
                             </button>
                             <button
                                 type="button"
                                 onClick={handleDeleteClick}
-                                className="w-full flex items-center gap-3 px-3 py-3 text-sm font-medium text-red-400 hover:bg-red-500/10 rounded-lg transition-all duration-300 ease-in-out text-left"
+                                className="w-full flex items-center gap-3 rounded-lg px-3 py-3 text-left text-sm font-medium text-[var(--badge-critical-text)] transition-all duration-300 ease-in-out hover:bg-[var(--badge-critical-bg)]"
                             >
                                 <Trash2 size={14} />
                                 Delete Asset
                             </button>
                         </div>
                     ) : (
-                        <div className="p-4 bg-red-500/5 border-t-2 border-red-500/50">
-                            <p className="text-sm font-bold text-white mb-2">
+                        <div className="border-t-2 border-[var(--badge-critical-border)] bg-[var(--badge-critical-bg)] p-4">
+                            <p className="mb-2 text-sm font-bold text-[var(--text-primary)]">
                                 Confirm Deletion
                             </p>
                             <p className="text-xs text-[var(--text-muted)] mb-4">
@@ -124,14 +124,14 @@ export function AssetActions({
                                 <button
                                     type="button"
                                     onClick={handleFinalDelete}
-                                    className="w-full py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-lg text-xs font-bold transition-all duration-300 ease-in-out"
+                                    className="w-full rounded-lg bg-[var(--state-critical)] py-2.5 text-xs font-bold text-white transition-all duration-300 ease-in-out hover:opacity-90"
                                 >
                                     Yes, Delete Asset
                                 </button>
                                 <button
                                     type="button"
                                     onClick={handleCancelDelete}
-                                    className="w-full py-2 bg-[var(--bg-tertiary)] hover:bg-[var(--bg-secondary)] text-white rounded-lg text-xs transition-all duration-300 ease-in-out"
+                                    className="w-full rounded-lg bg-[var(--bg-tertiary)] py-2 text-xs text-[var(--text-primary)] transition-all duration-300 ease-in-out hover:bg-[var(--bg-secondary)]"
                                 >
                                     Cancel
                                 </button>
