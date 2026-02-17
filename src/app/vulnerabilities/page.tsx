@@ -683,12 +683,12 @@ function VulnerabilitiesContent() {
           <article className="overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)]">
             <header className="flex flex-col gap-3 border-b border-[var(--border-color)] p-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h2 className="text-lg font-semibold text-[var(--text-primary)]">Vulnerability Queue</h2>
+                <h2 className="type-section text-[var(--text-primary)]">Vulnerability Queue</h2>
                 <p className="text-sm text-[var(--text-secondary)]">
                   Showing {vulns.length} of {numberFormatter.format(pagination.total)} vulnerabilities
                 </p>
               </div>
-              <div className="text-xs text-[var(--text-muted)]">Page {pagination.page}</div>
+              <div className="type-caption text-[var(--text-muted)]">Page {pagination.page}</div>
             </header>
 
             {vulns.length === 0 ? (
@@ -730,14 +730,14 @@ function VulnerabilitiesContent() {
                                 href={`https://nvd.nist.gov/vuln/detail/${vuln.cveId}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 font-mono text-xs text-[var(--accent-1)] hover:text-[var(--accent-1-strong)]"
+                                className="type-mono inline-flex items-center gap-1 text-xs text-[var(--accent-1)] hover:text-[var(--accent-1-strong)]"
                                 onClick={(event) => event.stopPropagation()}
                               >
                                 {vuln.cveId}
                                 <ExternalLink size={11} />
                               </a>
                             ) : (
-                              <span className="font-mono text-xs text-[var(--text-muted)]">No CVE ID</span>
+                              <span className="type-mono text-xs text-[var(--text-muted)]">No CVE ID</span>
                             )}
 
                             <span className={cn("rounded-full border px-2 py-0.5 text-[11px]", severityTone)}>
@@ -773,12 +773,12 @@ function VulnerabilitiesContent() {
                           </p>
 
                           <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[var(--text-muted)]">
-                            <span>
-                              CVSS {typeof vuln.cvssScore === "number" ? vuln.cvssScore.toFixed(1) : "N/A"}
-                            </span>
-                            <span>
-                              EPSS {typeof vuln.epssScore === "number" ? `${(vuln.epssScore * 100).toFixed(1)}%` : "N/A"}
-                            </span>
+                              <span className="type-mono">
+                                CVSS {typeof vuln.cvssScore === "number" ? vuln.cvssScore.toFixed(1) : "N/A"}
+                              </span>
+                              <span className="type-mono">
+                                EPSS {typeof vuln.epssScore === "number" ? `${(vuln.epssScore * 100).toFixed(1)}%` : "N/A"}
+                              </span>
                             <span>Source {vuln.source}</span>
                             {vuln.assignedUser?.name || vuln.assignedUser?.email ? (
                               <span>

@@ -92,30 +92,30 @@ Create a single, reusable token and utility layer that enforces the reference vi
 ---
 
 # Phase 2 - Typography and Visual Hierarchy
-**Phase status:** `[ ] Not started`
+**Phase status:** `[x] Completed`
 
 ## Objective
 Align app-wide typography to reference: strong display headlines, mono tactical labels, clear body text.
 
 ## Detailed Tasks
-- [ ] Update font loading in `src/app/layout.tsx`:
-  - [ ] Display family for section/page headings.
-  - [ ] Mono family for telemetry labels, technical IDs, tactical tags.
-  - [ ] Body sans family for readability.
-- [ ] Define a consistent typographic scale:
-  - [ ] Heading tiers across breakpoints.
-  - [ ] Label/overline/caption sizing and letter-spacing.
-  - [ ] Body and helper text line-height system.
-- [ ] Apply hierarchy in shared surfaces:
-  - [ ] `PageHeader`
-  - [ ] Sidebar labels
-  - [ ] Top bar status text
-  - [ ] Table headers and metadata badges
+- [x] Update font loading in `src/app/layout.tsx`:
+  - [x] Display family for section/page headings.
+  - [x] Mono family for telemetry labels, technical IDs, tactical tags.
+  - [x] Body sans family for readability.
+- [x] Define a consistent typographic scale:
+  - [x] Heading tiers across breakpoints.
+  - [x] Label/overline/caption sizing and letter-spacing.
+  - [x] Body and helper text line-height system.
+- [x] Apply hierarchy in shared surfaces:
+  - [x] `PageHeader`
+  - [x] Sidebar labels
+  - [x] Top bar status text
+  - [x] Table headers and metadata badges
 
 ## Acceptance Criteria
-- [ ] Typography feels reference-consistent on every shell route.
-- [ ] Technical labels and IDs have a coherent mono style.
-- [ ] Mobile readability remains high with no cramped text blocks.
+- [x] Typography feels reference-consistent on every shell route.
+- [x] Technical labels and IDs have a coherent mono style.
+- [x] Mobile readability remains high with no cramped text blocks.
 
 ---
 
@@ -357,7 +357,7 @@ Finalize quality with responsive checks, accessibility validation, and engineeri
 # Completion Log (tick phases as they close)
 - [x] Phase 0 - Discovery and Alignment Lock
 - [x] Phase 1 - Design Token Foundation
-- [ ] Phase 2 - Typography and Visual Hierarchy
+- [x] Phase 2 - Typography and Visual Hierarchy
 - [ ] Phase 3 - App Shell Redesign
 - [ ] Phase 4 - Shared Component System Upgrade
 - [ ] Phase 5 - Dashboard Migration

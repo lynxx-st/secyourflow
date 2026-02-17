@@ -29,8 +29,10 @@ This file mirrors `UI.md` and must be updated in lockstep after each completed p
 - [x] One-off hard-coded style usage reduced across key authenticated app-shell routes/components.
 
 ### Phase 2 - Typography and Visual Hierarchy
-- [ ] Not started
-- [ ] Font strategy and hierarchy rollout pending.
+- [x] Completed
+- [x] Font strategy updated in `src/app/layout.tsx` with display/mono/body families.
+- [x] Typography scale and utility classes added in `src/app/globals.css`.
+- [x] Hierarchy applied in `PageHeader`, shell labels/topbar, and table heading surfaces.
 
 ### Phase 3 - App Shell Redesign
 - [ ] Not started

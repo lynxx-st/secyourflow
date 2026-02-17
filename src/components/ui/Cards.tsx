@@ -55,7 +55,7 @@ export function StatCard({
             )}
         >
             <div className="flex items-start justify-between mb-3">
-                <span className="text-sm font-medium text-[var(--text-secondary)]">
+                <span className="type-caption font-medium text-[var(--text-secondary)]">
                     {title}
                 </span>
                 {icon && (
@@ -69,7 +69,7 @@ export function StatCard({
                 <div className="flex-1">
                     <span
                         className={cn(
-                            "text-3xl font-bold",
+                            "type-title",
                             severity ? severityTextTone[severity] : "text-[var(--text-primary)]"
                         )}
                     >
@@ -83,7 +83,7 @@ export function StatCard({
                 {trend && (
                     <div className={cn("flex items-center gap-1", getTrendColor())}>
                         {getTrendIcon()}
-                        <span className="text-xs font-medium">
+                        <span className="type-caption font-medium">
                             {Math.abs(trend.value)}% {trend.label}
                         </span>
                     </div>
@@ -119,7 +119,7 @@ export function RiskScoreCard({ score, label, className }: RiskScoreCardProps) {
 
     return (
         <div className={cn("card p-6 flex flex-col items-center", className)}>
-            <span className="text-sm font-medium text-[var(--text-secondary)] mb-4">
+            <span className="type-caption font-medium text-[var(--text-secondary)] mb-4">
                 {label}
             </span>
 
@@ -150,9 +150,9 @@ export function RiskScoreCard({ score, label, className }: RiskScoreCardProps) {
                 </svg>
                 {/* Center text */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-4xl font-bold text-[var(--text-primary)]">{score.toFixed(1)}</span>
+                    <span className="type-display text-[var(--text-primary)]">{score.toFixed(1)}</span>
                     <span
-                        className="text-sm font-medium"
+                        className="type-caption font-semibold"
                         style={{ color: getScoreColor() }}
                     >
                         {getScoreLabel()}
@@ -214,7 +214,7 @@ export function ProgressBar({
                 />
             </div>
             {showLabel && (
-                <span className="text-sm font-medium text-[var(--text-secondary)] w-12 text-right">
+                <span className="type-caption font-medium text-[var(--text-secondary)] w-12 text-right">
                     {percentage.toFixed(0)}%
                 </span>
             )}
@@ -245,7 +245,7 @@ export function Card({
                 <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--border-color)]">
                     <div>
                         {title && (
-                            <h3 className="text-base font-semibold text-[var(--text-primary)]">{title}</h3>
+                            <h3 className="type-section text-[var(--text-primary)]">{title}</h3>
                         )}
                         {subtitle && (
                             <p className="text-sm text-[var(--text-muted)] mt-0.5">{subtitle}</p>
@@ -274,7 +274,7 @@ export function EmptyState({ icon, title, description, action }: EmptyStateProps
                     {icon}
                 </div>
             )}
-            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-1">{title}</h3>
+            <h3 className="type-section mb-1 text-[var(--text-primary)]">{title}</h3>
             <p className="text-sm text-[var(--text-muted)] max-w-sm mb-4">
                 {description}
             </p>

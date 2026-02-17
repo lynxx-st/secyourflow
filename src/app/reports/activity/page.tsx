@@ -153,7 +153,7 @@ export default function ReportsActivityPage() {
         <section className="rounded-3xl border border-[var(--border-color)] bg-[linear-gradient(132deg,var(--accent-1-soft),color-mix(in_srgb,var(--bg-secondary)_92%,transparent)_44%,color-mix(in_srgb,var(--bg-secondary)_98%,transparent))] p-6 sm:p-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h1 className="text-2xl font-semibold text-[var(--text-primary)] sm:text-3xl">Activity Log</h1>
+              <h1 className="type-display text-[var(--text-primary)]">Activity Log</h1>
               <p className="mt-2 text-sm text-[var(--text-secondary)]">
                 System activity history showing user actions, security events, and system changes.
               </p>
@@ -203,8 +203,8 @@ export default function ReportsActivityPage() {
             },
           ].map((item) => (
             <article key={item.label} className={cn("rounded-xl border px-4 py-3", item.tone)}>
-              <p className="text-xs uppercase tracking-wide">{item.label}</p>
-              <p className="mt-1 text-2xl font-semibold">{item.value}</p>
+              <p className="type-label">{item.label}</p>
+              <p className="type-title mt-1">{item.value}</p>
             </article>
           ))}
         </section>
@@ -226,7 +226,7 @@ export default function ReportsActivityPage() {
 
         <section className="overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)]">
           <header className="border-b border-[var(--border-color)] px-5 py-4">
-            <h2 className="text-base font-semibold text-[var(--text-primary)]">Activity Log</h2>
+            <h2 className="type-section text-[var(--text-primary)]">Activity Log</h2>
           </header>
           {filteredActivities.length === 0 ? (
             <div className="p-8 text-sm text-[var(--text-muted)]">No activity logs found.</div>
@@ -286,7 +286,7 @@ export default function ReportsActivityPage() {
                         </div>
                       </div>
                       <button
-                        className="text-xs text-[var(--accent-1)] transition-colors hover:text-[var(--accent-1-strong)]"
+                        className="type-caption text-[var(--accent-1)] transition-colors hover:text-[var(--accent-1-strong)]"
                         onClick={(e) => {
                           e.stopPropagation();
                           setSelectedActivity(activity);
@@ -314,7 +314,7 @@ export default function ReportsActivityPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[var(--border-color)] bg-[var(--bg-elevated)]/95 px-6 py-4">
-              <h2 className="text-xl font-semibold text-[var(--text-primary)]">Activity Details</h2>
+              <h2 className="type-section text-[var(--text-primary)]">Activity Details</h2>
               <button
                 onClick={() => setSelectedActivity(null)}
                 className="rounded-lg p-2 text-[var(--text-muted)] transition-colors hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]"
@@ -327,7 +327,7 @@ export default function ReportsActivityPage() {
               <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-tertiary)]/40 p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <ActivityIcon size={16} className="text-[var(--accent-1)]" />
-                  <h3 className="text-sm font-semibold text-[var(--text-primary)]">Action Information</h3>
+                  <h3 className="type-caption font-semibold text-[var(--text-primary)]">Action Information</h3>
                 </div>
                 <div className="space-y-3">
                   <div>
@@ -353,7 +353,7 @@ export default function ReportsActivityPage() {
                 <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-tertiary)]/40 p-4">
                   <div className="flex items-center gap-2 mb-3">
                     <User size={16} className="text-[var(--accent-1)]" />
-                    <h3 className="text-sm font-semibold text-[var(--text-primary)]">User Information</h3>
+                    <h3 className="type-caption font-semibold text-[var(--text-primary)]">User Information</h3>
                   </div>
                   <div className="space-y-3">
                     <div className="grid grid-cols-2 gap-4">
@@ -380,7 +380,7 @@ export default function ReportsActivityPage() {
               <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-tertiary)]/40 p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <Globe size={16} className="text-[var(--badge-low-text)]" />
-                  <h3 className="text-sm font-semibold text-[var(--text-primary)]">Network & Device</h3>
+                  <h3 className="type-caption font-semibold text-[var(--text-primary)]">Network & Device</h3>
                 </div>
                 <div className="space-y-3">
                   <div>
@@ -421,7 +421,7 @@ export default function ReportsActivityPage() {
               <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-tertiary)]/40 p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <Calendar size={16} className="text-[var(--badge-medium-text)]" />
-                  <h3 className="text-sm font-semibold text-[var(--text-primary)]">Timestamp</h3>
+                  <h3 className="type-caption font-semibold text-[var(--text-primary)]">Timestamp</h3>
                 </div>
                 <div>
                   <p className="text-xs text-[var(--text-muted)] mb-1">Date & Time</p>
@@ -439,7 +439,7 @@ export default function ReportsActivityPage() {
                 <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-tertiary)]/40 p-4">
                   <div className="flex items-center gap-2 mb-3">
                     <FileText size={16} className="text-[var(--badge-high-text)]" />
-                    <h3 className="text-sm font-semibold text-[var(--text-primary)]">Changes</h3>
+                    <h3 className="type-caption font-semibold text-[var(--text-primary)]">Changes</h3>
                   </div>
                   <div className="space-y-3">
                     {selectedActivity.oldValue ? (

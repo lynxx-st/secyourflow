@@ -38,13 +38,13 @@ export function PageHeader({ title, description, badge, actions, stats, classNam
                 <div className="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-6">
                     <div className="flex-1 min-w-0 xl:min-w-[280px]">
                         {badge && (
-                            <div className="mb-4 inline-flex items-center gap-2 rounded-lg border border-[var(--line-3)] bg-[var(--accent-1-soft)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-[var(--accent-1-strong)]">
+                            <div className="type-label mb-4 inline-flex items-center gap-2 rounded-lg border border-[var(--line-3)] bg-[var(--accent-1-soft)] px-2.5 py-1 text-[var(--accent-1-strong)]">
                                 {badge}
                             </div>
                         )}
 
                         <div className="flex flex-col gap-3">
-                            <h1 className="text-2xl font-bold tracking-tight text-[var(--text-primary)] sm:text-3xl lg:text-4xl">
+                            <h1 className="type-display text-[var(--text-primary)]">
                                 {title}
                             </h1>
                             {description && (
@@ -75,16 +75,16 @@ export function PageHeader({ title, description, badge, actions, stats, classNam
                                         </div>
                                     )}
                                     <div className="flex flex-col">
-                                        <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] group-hover/stat:text-[var(--text-secondary)] transition-colors">
+                                        <span className="type-label text-[var(--text-muted)] group-hover/stat:text-[var(--text-secondary)] transition-colors">
                                             {stat.label}
                                         </span>
                                         <div className="flex items-baseline gap-2">
-                                            <span className="text-xl font-bold text-[var(--text-primary)]">
+                                            <span className="type-title text-[var(--text-primary)]">
                                                 {stat.value}
                                             </span>
                                             {stat.trend && (
                                                 <span className={cn(
-                                                    "text-[10px] font-bold",
+                                                    "type-caption font-semibold",
                                                     stat.trend.neutral ? "text-[var(--text-muted)]" :
                                                         stat.trend.isUp ? "text-emerald-400" : "text-red-400"
                                                 )}>

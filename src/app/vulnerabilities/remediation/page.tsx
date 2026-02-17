@@ -262,18 +262,18 @@ export default function RemediationPlansPage() {
         <section className="rounded-3xl border border-[var(--border-color)] bg-[linear-gradient(132deg,var(--accent-1-soft),color-mix(in_srgb,var(--bg-secondary)_92%,transparent)_44%,color-mix(in_srgb,var(--bg-secondary)_98%,transparent))] p-6 sm:p-8">
           <div className="flex flex-col gap-5 xl:flex-row xl:items-end xl:justify-between">
             <div>
-              <h1 className="text-2xl font-semibold text-[var(--text-primary)] sm:text-3xl">Remediation Plans</h1>
+              <h1 className="type-display text-[var(--text-primary)]">Remediation Plans</h1>
               <p className="mt-2 text-sm text-[var(--text-secondary)]">
                 Track plan ownership, linked vulnerabilities, evidence, and completion progress.
               </p>
               <div className="mt-3 flex flex-wrap gap-2 text-xs text-[var(--text-secondary)]">
-                <span className="rounded-full border border-[var(--border-color)] bg-[var(--bg-tertiary)]/70 px-3 py-1">
+                <span className="type-mono rounded-full border border-[var(--border-color)] bg-[var(--bg-tertiary)]/70 px-3 py-1">
                   {plans.length} plans
                 </span>
-                <span className="rounded-full border border-[var(--border-color)] bg-[var(--bg-tertiary)]/70 px-3 py-1">
+                <span className="type-mono rounded-full border border-[var(--border-color)] bg-[var(--bg-tertiary)]/70 px-3 py-1">
                   {summary.active} active
                 </span>
-                <span className="rounded-full border border-[var(--border-color)] bg-[var(--bg-tertiary)]/70 px-3 py-1">
+                <span className="type-mono rounded-full border border-[var(--border-color)] bg-[var(--bg-tertiary)]/70 px-3 py-1">
                   {summary.blocked} blocked
                 </span>
               </div>
@@ -323,7 +323,7 @@ export default function RemediationPlansPage() {
 
         <section className="overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)]">
           <header className="border-b border-[var(--border-color)] px-5 py-4">
-            <h2 className="text-base font-semibold text-[var(--text-primary)]">Plan Tracker</h2>
+            <h2 className="type-section text-[var(--text-primary)]">Plan Tracker</h2>
           </header>
 
           {plans.length === 0 ? (
