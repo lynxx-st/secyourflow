@@ -40,6 +40,10 @@ jobs:
         with:
           bun-version: 1.3.9
       - run: bun install --frozen-lockfile
+      - name: Fetch canonical upstream base
+        run: |
+          git fetch --no-tags https://github.com/lagzenthakuri/secyourflow.git main
+          echo "LINT_UPSTREAM_BASE=$(git rev-parse FETCH_HEAD)" >> "$GITHUB_ENV"
       - run: bun run check:changed
         env:
           LINT_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}

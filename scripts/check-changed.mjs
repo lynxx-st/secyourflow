@@ -1,9 +1,23 @@
 import { execFileSync, spawnSync } from "node:child_process";
 
-const base = process.env.LINT_BASE;
-if (!(base && /^[a-f0-9]{40}$/i.test(base))) {
+const pullRequestBase = process.env.LINT_BASE;
+if (!(pullRequestBase && /^[a-f0-9]{40}$/i.test(pullRequestBase))) {
   throw new Error("LINT_BASE must be the full base commit SHA");
 }
+
+const upstreamBase = process.env.LINT_UPSTREAM_BASE;
+if (upstreamBase && !/^[a-f0-9]{40}$/i.test(upstreamBase)) {
+  throw new Error("LINT_UPSTREAM_BASE must be the full upstream commit SHA");
+}
+
+// Fork sync PRs should lint fork-only changes without re-linting imported upstream code.
+const base = upstreamBase
+  ? execFileSync("git", ["merge-base", "HEAD", upstreamBase], {
+      encoding: "utf8",
+    }).trim()
+  : pullRequestBase;
+
+console.log(`Linting changes since ${base}`);
 const files = execFileSync(
   "git",
   ["diff", "--name-only", "--diff-filter=ACMR", "-z", base, "HEAD"],
